@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/root"
-    tools:context=".TransitionActivityB">
+    tools:context=".features.transitions.TransitionActivityB">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"

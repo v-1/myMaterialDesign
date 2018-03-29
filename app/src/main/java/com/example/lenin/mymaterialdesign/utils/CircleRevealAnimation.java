@@ -1,4 +1,4 @@
-package com.example.lenin.mymaterialdesign;
+package com.example.lenin.mymaterialdesign.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,7 +9,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 public class CircleRevealAnimation {
 
-    public static void enterCircleReveal(View v){
+    public static void enterCircleReveal(final View v){
         Rect bounds = new Rect();
         v.getDrawingRect(bounds);
         int cx = bounds.centerX();
@@ -17,7 +17,15 @@ public class CircleRevealAnimation {
         int finalRadius = Math.max(v.getWidth(), v.getHeight())/2;
         Animator anim = ViewAnimationUtils.createCircularReveal(v, cx, cy, 0, finalRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        v.setVisibility(View.VISIBLE);
+        anim.setStartDelay(200);
+        anim.setDuration(400);
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation){
+                super.onAnimationStart(animation);
+                v.setVisibility(View.VISIBLE);
+            }
+        });
         anim.start();
     }
     public static void exitCircleReveal(final View v){
@@ -27,6 +35,7 @@ public class CircleRevealAnimation {
         int cy = bounds.centerY();
         int initialRadius = Math.max(v.getWidth(), v.getHeight())/2;
         Animator anim =ViewAnimationUtils.createCircularReveal(v, cx, cy, initialRadius, 0);
+        anim.setDuration(400);
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
